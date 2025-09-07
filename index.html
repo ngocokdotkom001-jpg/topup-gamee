@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top up Game - Falz Pedia</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      background-color: #006400;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      position: relative;
+    }
+    .saldo {
+      background-color: #008000;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+    }
+    .container {
+      background: white;
+      margin: 20px auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 450px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #006400;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #008000;
+    }
+    .result, .deposit-result, .payment-info {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+    }
+    .result {
+      background: #e6ffe6;
+      border: 1px solid #00a000;
+    }
+    .deposit {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+    }
+    .deposit button {
+      background: #0044cc;
+    }
+    .deposit button:hover {
+      background: #0066ff;
+    }
+    .deposit-result {
+      background: #e6f0ff;
+      border: 1px solid #0044cc;
+    }
+    .payment-info {
+      background: #fffbe6;
+      border: 1px solid #ffcc00;
+    }
+    .payment-info img {
+      max-width: 200px;
+      display: block;
+      margin: 10px auto;
+    }
+    .history {
+      margin: 20px auto;
+      width: 95%;
+      max-width: 600px;
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background: #006400;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    Top Up Game - Falz Pedia
+    <span class="saldo" id="saldoBox">Saldo: Rp100.000</span>
+  </div>
+
+  <div class="container">
+    <form id="voucherForm">
+      <label for="idplayer">ID Player</label>
+      <input type="text" id="idplayer" placeholder="Masukkan ID Player">
+
+      <label for="game">Pilih Game</label>
+      <select id="game">
+        <option value="">-- Pilih Game --</option>
+        <option value="Mobile Legends">Mobile Legends</option>
+        <option value="Free Fire">Free Fire</option>
+        <option value="PUBG Mobile">PUBG Mobile</option>
+      </select>
+
+      <label for="nominal">Nominal (Diamond)</label>
+      <select id="nominal">
+        <option value="">-- Pilih Nominal --</option>
+        <option value="50">50 Diamond</option>
+        <option value="100">100 Diamond</option>
+        <option value="200">200 Diamond</option>
+      </select>
+
+      <button type="submit">Beli Voucher</button>
+    </form>
+
+    <!-- Hasil pembelian -->
+    <div class="result" id="resultBox">
+      <h3>✅ Pembelian Berhasil</h3>
+      <p><b>ID Player:</b> <span id="resId"></span></p>
+      <p><b>Game:</b> <span id="resGame"></span></p>
+      <p><b>Nominal:</b> <span id="resNominal"></span></p>
+      <p><b>Harga:</b> Rp<span id="resHarga"></span></p>
+      <p><b>Sisa Saldo:</b> Rp<span id="resSaldo"></span></p>
+    </div>
+
+    <!-- Deposit -->
+    <div class="deposit">
+      <h3>💰 Deposit Saldo</h3>
+      <label for="depositInput">Masukkan nominal deposit</label>
+      <input type="number" id="depositInput" placeholder="Contoh: 75000">
+
+      <label for="metode">Pilih metode pembayaran</label>
+      <select id="metode" onchange="showPaymentInfo()">
+        <option value="">-- Pilih Metode --</option>
+        <option value="Transfer Bank">Transfer Bank</option>
+        <option value="Dana">Dana</option>
+        <option value="Gopay">Gopay</option>
+        <option value="QRIS">QRIS</option>
+      </select>
+
+      <!-- Info pembayaran -->
+      <div class="payment-info" id="paymentInfo">
+        <p id="paymentText"></p>
+        <img id="qrisImage" src="" alt="QRIS" style="display:none;">
+      </div>
+
+      <button type="button" onclick="deposit()">Deposit</button>
+
+      <div class="deposit-result" id="depositResult">
+        ✅ Deposit berhasil sebesar Rp<span id="depJumlah"></span><br>
+        🏦 Metode: <span id="depMetode"></span><br>
+        💳 Saldo sekarang: Rp<span id="depSaldo"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Riwayat transaksi -->
+  <div class="history">
+    <h3>📜 Riwayat Transaksi</h3>
+    <table id="historyTable">
+      <thead>
+        <tr>
+          <th>Waktu</th>
+          <th>Jenis</th>
+          <th>Detail</th>
+          <th>Jumlah (Rp)</th>
+          <th>Saldo Akhir</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    let saldo = 100000; // saldo awal
+    const hargaDiamond = {
+      "50": 10000,
+      "100": 20000,
+      "200": 40000
+    };
+
+    function tambahRiwayat(jenis, detail, jumlah, saldoAkhir) {
+      let tbody = document.getElementById("historyTable").querySelector("tbody");
+      let row = document.createElement("tr");
+      let waktu = new Date().toLocaleString("id-ID");
+
+      row.innerHTML = `
+        <td>${waktu}</td>
+        <td>${jenis}</td>
+        <td>${detail}</td>
+        <td>${jumlah.toLocaleString("id-ID")}</td>
+        <td>${saldoAkhir.toLocaleString("id-ID")}</td>
+      `;
+
+      tbody.prepend(row); // terbaru di atas
+    }
+
+    // Proses pembelian
+    document.getElementById("voucherForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      let idPlayer = document.getElementById("idplayer").value.trim();
+      let game = document.getElementById("game").value;
+      let nominal = document.getElementById("nominal").value;
+
+      if (idPlayer === "" || game === "" || nominal === "") {
+        alert("Harap isi semua data pembelian!");
+        return;
+      }
+
+      let harga = hargaDiamond[nominal];
+      if (saldo < harga) {
+        alert("Saldo tidak cukup! Silakan deposit.");
+        return;
+      }
+
+      saldo -= harga;
+
+      document.getElementById("resId").textContent = idPlayer;
+      document.getElementById("resGame").textContent = game;
+      document.getElementById("resNominal").textContent = nominal + " Diamond";
+      document.getElementById("resHarga").textContent = harga.toLocaleString("id-ID");
+      document.getElementById("resSaldo").textContent = saldo.toLocaleString("id-ID");
+
+      document.getElementById("resultBox").style.display = "block";
+      document.getElementById("saldoBox").textContent = "Saldo: Rp" + saldo.toLocaleString("id-ID");
+
+      tambahRiwayat("Pembelian", `${game} - ${nominal} Diamond`, -harga, saldo);
+    });
+
+    // Tampilkan info pembayaran sesuai metode
+    function showPaymentInfo() {
+      let metode = document.getElementById("metode").value;
+      let infoBox = document.getElementById("paymentInfo");
+      let text = document.getElementById("paymentText");
+      let qrisImg = document.getElementById("qrisImage");
+
+      infoBox.style.display = "none";
+      text.innerHTML = "";
+      qrisImg.style.display = "none";
+
+      if (metode === "Transfer Bank") {
+        text.innerHTML = "Transfer ke Rekening BCA: <b>1234567890 a.n. Bejo Onlen</b>";
+        infoBox.style.display = "block";
+      } else if (metode === "Dana") {
+        text.innerHTML = "Transfer ke Dana: <b>081234567890 a.n. Bejo Onlen</b>";
+        infoBox.style.display = "block";
+      } else if (metode === "Gopay") {
+        text.innerHTML = "Transfer ke Gopay: <b>081234567890 a.n. Bejo Onlen</b>";
+        infoBox.style.display = "block";
+      } else if (metode === "QRIS") {
+        text.innerHTML = "Scan QRIS berikut untuk melakukan pembayaran:";
+        qrisImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=BejoOnlenQRIS"; 
+        qrisImg.style.display = "block";
+        infoBox.style.display = "block";
+      }
+    }
+
+    // Proses deposit
+    function deposit() {
+      let jumlah = parseInt(document.getElementById("depositInput").value);
+      let metode = document.getElementById("metode").value;
+
+      if (isNaN(jumlah) || jumlah <= 0) {
+        alert("Masukkan jumlah deposit yang valid!");
+        return;
+      }
+      if (metode === "") {
+        alert("Pilih metode pembayaran terlebih dahulu!");
+        return;
+      }
+
+      saldo += jumlah;
+
+      document.getElementById("saldoBox").textContent = "Saldo: Rp" + saldo.toLocaleString("id-ID");
+      document.getElementById("depJumlah").textContent = jumlah.toLocaleString("id-ID");
+      document.getElementById("depMetode").textContent = metode;
+      document.getElementById("depSaldo").textContent = saldo.toLocaleString("id-ID");
+
+      document.getElementById("depositResult").style.display = "block";
+
+      if (document.getElementById("resSaldo").textContent !== "") {
+        document.getElementById("resSaldo").textContent = saldo.toLocaleString("id-ID");
+      }
+
+      tambahRiwayat("Deposit", metode, jumlah, saldo);
+
+      document.getElementById("depositInput").value = "";
+      document.getElementById("metode").value = "";
+      document.getElementById("paymentInfo").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
