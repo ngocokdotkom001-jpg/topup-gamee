@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Lora', serif;
+  background: #0a0a0a;
+  color: #f5f0e6;
+  line-height: 1.8;
+  padding: 0;
+  background-image: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+}
+
+header {
+  text-align: center;
+  padding: 60px 20px 20px;
+  background: rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.2rem;
+  font-weight: 800;
+  color: #d4af37;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.tagline {
+  font-style: italic;
+  color: #c5b386;
+  font-size: 1.3rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.divider {
+  width: 80px;
+  height: 2px;
+  background: #d4af37;
+  margin: 25px auto;
+}
+
+/* Cart Bar */
+.cart-bar {
+  background: #1a1a2e;
+  padding: 12px 20px;
+  text-align: center;
+  color: #c5b386;
+  font-size: 1rem;
+  border-bottom: 1px solid #333;
+}
+
+.btn-cart {
+  background: #d4af37;
+  color: #0a0a0a;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.btn-cart:hover {
+  background: #c19a2f;
+}
+
+.menu-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px 60px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.menu-section {
+  flex: 1;
+  min-width: 300px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  color: #d4af37;
+  margin: 30px 0 25px;
+  text-align: center;
+  position: relative;
+}
+
+.section-title:after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: #5a5a5a;
+  margin: 10px auto;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #3a3a3a;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover {
+  border-bottom-color: #d4af37;
+}
+
+.item-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #f5f0e6;
+}
+
+.item-desc {
+  font-size: 1rem;
+  color: #b0a895;
+  font-style: italic;
+  margin-top: 6px;
+  max-width: 70%;
+}
+
+.item-actions {
+  text-align: right;
+}
+
+.item-price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #d4af37;
+  margin-bottom: 8px;
+}
+
+.btn-order {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-order:hover {
+  background: #219653;
+}
+
+/* Modal Keranjang */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background: #1a1a2e;
+  margin: 8% auto;
+  padding: 30px;
+  border: 1px solid #d4af37;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  color: #f5f0e6;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #fff;
+}
+
+.cart-item-modal {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 1.3rem;
+  margin: 15px 0;
+  color: #d4af37;
+}
+
+.btn-confirm {
+  width: 100%;
+  padding: 12px;
+  background: #d4af37;
+  color: #0a0a0a;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-confirm:hover {
+  background: #c19a2f;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #8a806a;
+  font-size: 0.95rem;
+  border-top: 1px solid #2a2a2a;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2.8rem;
+  }
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .item-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+  }
+  .item-desc {
+    max-width: 100%;
+  }
+  .modal-content {
+    margin: 15% auto;
+    padding: 20px;
+  }
+}
