@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OPULENCE — Menu Restoran Mewah</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="logo">OPULENCE</div>
+    <div class="divider"></div>
+    <p class="tagline">Pengalaman kuliner eksklusif di Kota Pekalongan — di mana rasa bertemu kemewahan.</p>
+  </header>
+
+  <!-- Keranjang Mini -->
+  <div class="cart-bar">
+    <span>Keranjang: </span>
+    <span id="cart-count">0</span> item |
+    <strong>Rp <span id="cart-total">0</span></strong>
+    <button id="view-cart-btn" class="btn-cart">Lihat Pesanan</button>
+  </div>
+
+  <div class="menu-container">
+    <!-- Makanan -->
+    <div class="menu-section">
+      <h2 class="section-title">Hidangan Pembuka & Hidangan Utama</h2>
+      
+      <div class="menu-item" data-name="Foie Gras Poêlé" data-price="420000">
+        <div>
+          <div class="item-name">Foie Gras Poêlé</div>
+          <div class="item-desc">Hati angsa panggang dengan saus truffle dan roti brioche hangat</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 420.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Filet de Bœuf Rossini" data-price="680000">
+        <div>
+          <div class="item-name">Filet de Bœuf Rossini</div>
+          <div class="item-desc">Daging sapi wagyu A5, foie gras, dan saus perreux</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 680.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Truffle Risotto" data-price="320000">
+        <div>
+          <div class="item-name">Truffle Risotto</div>
+          <div class="item-desc">Nasi arborio dengan truffle hitam segar dan parmesan aged 24 bulan</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 320.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Lobster Thermidor" data-price="580000">
+        <div>
+          <div class="item-name">Lobster Thermidor</div>
+          <div class="item-desc">Lobster utuh panggang dengan saus brandy dan keju gruyère</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 580.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Minuman & Dessert -->
+    <div class="menu-section">
+      <h2 class="section-title">Anggur & Hidangan Penutup</h2>
+      
+      <div class="menu-item" data-name="Château Margaux 2015" data-price="2500000">
+        <div>
+          <div class="item-name">Château Margaux 2015</div>
+          <div class="item-desc">Bordeaux Grand Cru Classé — full-bodied, blackcurrant, cedar</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 2.500.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Dom Pérignon Vintage" data-price="3800000">
+        <div>
+          <div class="item-name">Dom Pérignon Vintage</div>
+          <div class="item-desc">Champagne prestige — elegant, brioche, citrus notes</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 3.800.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Soufflé au Grand Marnier" data-price="180000">
+        <div>
+          <div class="item-name">Soufflé au Grand Marnier</div>
+          <div class="item-desc">Soufflé jeruk dengan Grand Marnier dan crème anglaise</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 180.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+
+      <div class="menu-item" data-name="Assiette de Fromages" data-price="220000">
+        <div>
+          <div class="item-name">Assiette de Fromages</div>
+          <div class="item-desc">Seleksi keju Prancis: Brie, Roquefort, Comté, dan Cambozola</div>
+        </div>
+        <div class="item-actions">
+          <div class="item-price">Rp 220.000</div>
+          <button class="btn-order">Pesan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Keranjang -->
+  <div id="cart-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Pesanan Anda</h3>
+      <div id="cart-items-list"></div>
+      <div class="cart-total">Total: Rp <span id="modal-total">0</span></div>
+      <button id="confirm-order" class="btn-confirm">Konfirmasi Pesanan</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>📍 Jl. Merdeka No. 1945, Pekalongan | 📞 +62 8560 1111 798 | 🕒 Buka: 10.00 – 23.00</p>
+    <p>Reservasi wajib. Dress code formal berlaku.</p>
+  </footer>
+
+  <script>
+    let cart = [];
+
+    // Tambahkan event listener ke semua tombol "Pesan"
+    document.querySelectorAll('.btn-order').forEach(button => {
+      button.addEventListener('click', function() {
+        const itemElement = this.closest('.menu-item');
+        const name = itemElement.dataset.name;
+        const price = parseInt(itemElement.dataset.price);
+
+        // Cek apakah item sudah ada di keranjang
+        const existing = cart.find(item => item.name === name);
+        if (existing) {
+          existing.quantity += 1;
+        } else {
+          cart.push({ name, price, quantity: 1 });
+        }
+
+        updateCart();
+        alert(`✅ ${name} ditambahkan ke pesanan!`);
+      });
+    });
+
+    function updateCart() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      document.getElementById('cart-count').textContent = count;
+      document.getElementById('cart-total').textContent = total.toLocaleString();
+
+      // Update modal
+      const list = document.getElementById('cart-items-list');
+      list.innerHTML = '';
+      if (cart.length === 0) {
+        list.innerHTML = '<p>Keranjang kosong</p>';
+        document.getElementById('modal-total').textContent = '0';
+        return;
+      }
+
+      cart.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'cart-item-modal';
+        div.innerHTML = `
+          <span>${item.name} × ${item.quantity}</span>
+          <span>Rp ${(item.price * item.quantity).toLocaleString()}</span>
+        `;
+        list.appendChild(div);
+      });
+
+      document.getElementById('modal-total').textContent = total.toLocaleString();
+    }
+
+    // Modal keranjang
+    const modal = document.getElementById('cart-modal');
+    document.getElementById('view-cart-btn').onclick = () => {
+      modal.style.display = 'block';
+      updateCart();
+    };
+
+    document.querySelector('.close').onclick = () => {
+      modal.style.display = 'none';
+    };
+
+    window.onclick = (event) => {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    };
+
+    // Konfirmasi pesanan
+    document.getElementById('confirm-order').onclick = () => {
+      if (cart.length === 0) {
+        alert('Keranjang Anda kosong!');
+        return;
+      }
+      const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      alert(`Pesanan berhasil dikirim!\nTotal: Rp ${total.toLocaleString()}\n\nStaf kami akan segera menghubungi Anda.`);
+      cart = [];
+      updateCart();
+      modal.style.display = 'none';
+    };
+  </script>
+</body>
+</html>
